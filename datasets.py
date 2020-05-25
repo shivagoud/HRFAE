@@ -25,7 +25,7 @@ class MyDataSet(data.Dataset):
         ])
 
         # load label file
-        label = np.load(label_dir)[:10000]
+        label = np.load(label_dir)[:1000]
         train_len = int(0.95*len(label))
         self.training_set = training_set
         self.obscure_age = obscure_age
