@@ -15,7 +15,7 @@ from torchvision import transforms, utils
 
 
 class MyDataSet(data.Dataset):
-    def __init__(self, age_min, age_max, image_dir, label_dir, output_size=(256, 256), training_set=True, obscure_age=True):
+    def __init__(self, age_min, age_max, image_dir, label_dir, output_size=(256, 256), training_set=True, obscure_age=True, data_size=100):
         self.image_dir = image_dir
         print('path set to ', self.image_dir)
         self.transform = transforms.Normalize(mean=[0.48501961, 0.45795686, 0.40760392], std=[1, 1, 1])
@@ -25,7 +25,7 @@ class MyDataSet(data.Dataset):
         ])
 
         # load label file
-        label = np.load(label_dir)[:10000]
+        label = np.load(label_dir)[:data_size]
         train_len = int(0.95*len(label))
         self.training_set = training_set
         self.obscure_age = obscure_age
@@ -44,7 +44,7 @@ class MyDataSet(data.Dataset):
 
     def __getitem__(self, index):
         print('loading', index, self.label[index][0][:2])
-        img_name = os.path.join(self.image_dir, self.label[index][0][:2]+'000', self.label[index][0])
+        img_name = os.path.join(self.image_dir,self.label[index][0][:2]+'000', self.label[index][0])
         print('image name:', img_name)
         if self.training_set and self.obscure_age:
             age_val = int(self.label[index][1]) + np.random.randint(-1, 1)
