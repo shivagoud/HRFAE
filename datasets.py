@@ -42,7 +42,9 @@ class MyDataSet(data.Dataset):
         return self.length
 
     def __getitem__(self, index):
+        print('loading', index)
         img_name = os.path.join(self.image_dir, f'{int(index/1000):02d}000', self.label[index][0])
+        print('image name:', img_name)
         if self.training_set and self.obscure_age:
             age_val = int(self.label[index][1]) + np.random.randint(-1, 1)
         else:
