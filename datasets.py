@@ -17,6 +17,7 @@ from torchvision import transforms, utils
 class MyDataSet(data.Dataset):
     def __init__(self, age_min, age_max, image_dir, label_dir, output_size=(256, 256), training_set=True, obscure_age=True):
         self.image_dir = os.path.join(image_dir, '00000')
+        print('path set to ', self.image_dir)
         self.transform = transforms.Normalize(mean=[0.48501961, 0.45795686, 0.40760392], std=[1, 1, 1])
         self.resize = transforms.Compose([
             transforms.Resize(output_size),
